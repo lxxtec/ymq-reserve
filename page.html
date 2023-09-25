@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>个人中心</title>
+    <link rel="stylesheet" href="./newstyle/css/main.css">
+    <link rel="stylesheet" href="./newstyle/css/weui.min.css">
+    <style>
+        .container .bg-gradual-change {
+            display: block;
+            width: 100%;
+        }
+
+        .content {
+            width: 100%;
+            padding-bottom: 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mine-information-box {
+            padding: 5px 0px 10px 16px;
+            display: flex;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+        }
+
+        .mine-headicon-wrap {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            overflow: hidden;
+            background-color: #2c91d6;
+        }
+
+        .mine-headicon {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mine-name {
+            margin: 10px 0 0 10px;
+            font-size: 20px;
+            line-height: 20px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 1);
+            margin: 20px 0 0px 20px;
+        }
+
+
+        .mine-name .profile {
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .personal-information {
+            position: absolute;
+            top: 22px;
+            right: 20px;
+            padding: 0 16px;
+            font-size: 12px;
+            font-weight: 500;
+            height: 26px;
+            line-height: 26px;
+            color: rgba(255, 255, 255, 1);
+            background: linear-gradient(90deg, rgba(255, 224, 46, 1), rgba(255, 169, 5, 1));
+            border-radius: 13px;
+        }
+
+        .weui-grid__icon+.weui-grid__label {
+            margin-top: 8px;
+            color: #000;
+        }
+
+        .weui-grid {
+            background-color: #ffffff;
+            width: 50%
+        }
+
+        .btn-loginout {
+            width: 180px;
+            height: 46px;
+            color: #ffffff;
+            border-radius: 46px;
+            line-height: 46px;
+            text-align: center;
+            background: -webkit-linear-gradient(to right, #21B4F7, #1387FE);
+            /* Safari 5.1-6.0 */
+            background: -o-linear-gradient(to right, #21B4F7, #1387FE);
+            /* Opera 11.1-12.0 */
+            background: -moz-linear-gradient(to right, #21B4F7, #1387FE);
+            /* Firefox 3.6-15 */
+            background: linear-gradient(to right, #21B4F7, #1387FE);
+            /* 标准语法 */
+            margin: auto;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="bg-gradual-change" id="divbg" style="display:none;">
+                <img class="full-img" src="./newstyle/images/mine-bg.jpg" mode="widthFix">
+            </div>
+            <div class="mine-information-box" style="display:none;" id="divuser">
+                <div class="mine-headicon-wrap">
+                    <img class="mine-headicon" id="imghead" src="./newstyle/images/avatar.png" alt="" mode="widthFix">
+                </div>
+                <div class="mine-name">
+                    <div id="divname"></div>
+                </div>
+                <div class="personal-information" onclick="gouserinfo()">个人信息&nbsp;></div>
+            </div>
+            <div class="mine-follow-box-wrap">
+                <div class="weui-grids" id="index">
+                    <a href="javascript:" class="weui-grid" onclick="goToField()">
+                        <div class="weui-grid__icon">
+                            <img src="./newstyle/images/icon/myField.png" alt="">
+                        </div>
+                        <p class="weui-grid__label">包场业务</p>
+                    </a>
+                    <!--<a href="javascript:" class="weui-grid" onclick="goToTicket()">
+                        <div class="weui-grid__icon">
+                            <img src="./newstyle/images/icon/MyTicket.png" alt="">
+                        </div>
+                        <p class="weui-grid__label">票据购买</p>
+                    </a>-->
+                    <a href="javascript:" class="weui-grid" onclick="goToFieldTK()">
+                        <div class="weui-grid__icon">
+                            <img src="./newstyle/images/icon/myFieldTK.png" alt="">
+                        </div>
+                        <p class="weui-grid__label">散场票购买</p>
+                    </a>
+                    <a href="javascript:" class="weui-grid" onclick="gotoOrder()">
+                        <div class="weui-grid__icon">
+                            <img src="./newstyle/images/icon/myOrder.png" alt="">
+                        </div>
+                        <p class="weui-grid__label">我的订单</p>
+                    </a>
+                    <a href="javascript:" class="weui-grid" onclick="gouserinfo()">
+                        <div class="weui-grid__icon">
+                            <img src="./newstyle/images/icon/myInfo.png" alt="">
+                        </div>
+                        <p class="weui-grid__label">个人信息</p>
+                    </a>
+                </div>
+
+
+                <div class="weui-grids" id="myInfo" style="display:none">
+                    <a href="javascript:" class="weui-grid" onclick="goField()">
+                        <div class="weui-grid__icon">
+                            <img src="./newstyle/images/icon/fieldOrder.png" alt="">
+                        </div>
+                        <p class="weui-grid__label">包场订单</p>
+                    </a>
+                    <!--<a href="javascript:" class="weui-grid" onclick="goTicket()">
+                        <div class="weui-grid__icon">
+                            <img src="./newstyle/images/icon/ticketOrder.png" alt="">
+                        </div>
+                        <p class="weui-grid__label">票据订单</p>
+                    </a>-->
+                    <a href="javascript:" class="weui-grid" onclick="goFieldTK()">
+                        <div class="weui-grid__icon">
+                            <img src="./newstyle/images/icon/FieldTicketOrder.png" alt="">
+                        </div>
+                        <p class="weui-grid__label">散场票订单</p>
+                    </a>
+                    <a href="javascript:" class="weui-grid" onclick="goback()">
+                        <div class="weui-grid__icon">
+                            <img src="./newstyle/images/icon/back.png" alt="">
+                        </div>
+                        <p class="weui-grid__label">返回</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/jqurey.js"></script>
+    <script src="../js/weui.js"></script>
+    <script type="text/javascript" src="../js/venue.js?t=20180830"></script>
+    <script>
+
+        function gotoOrder() {
+            $("#myInfo").show(500);
+            $("#index").hide(500);
+        }
+
+        function goback() {
+            $("#myInfo").hide(500);
+            $("#index").show(500);
+        }
+
+
+        function goToField() {
+            $.ajax({
+                url: "../../User/GetConfigValue",
+                data: {
+                    ConfigName: "IsShowFieldXZ"
+                },
+                cache: false,
+                success: function (data) {
+                    if (data == "1") {
+                        window.location.href = "../Venue/ShowXY.html?Type=Field";
+                    }
+                    else {
+                        window.location.href = "../Venue/VenueList.html?Type=Field";
+
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function goToTicket() {
+            $.ajax({
+                url: "../../User/GetConfigValue",
+                data: {
+                    ConfigName: "IsShowGPXY"
+                },
+                cache: false,
+                success: function (data) {
+                    if (data == "1") {
+                        window.location.href = "../Venue/ShowXY.html?Type=Ticket";
+                    }
+                    else {
+                        window.location.href = "../Venue/VenueList.html?Type=Ticket";
+
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function goToFieldTK() {
+            $.ajax({
+                url: "../../User/GetConfigValue",
+                data: {
+                    ConfigName: "IsShowGPXY"
+                },
+                cache: false,
+                success: function (data) {
+                    if (data == "1") {
+                        window.location.href = "../Venue/ShowXY.html?Type=FieldTK";
+                    }
+                    else {
+                        window.location.href = "../Venue/VenueList.html?Type=FieldTK";
+
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+
+        function goField() {
+            window.location.href = "../User/MyField.html";
+        }
+
+        function goTicket() {
+            window.location.href = "../User/MyTicket.html";
+        }
+
+        function goFieldTK() {
+            window.location.href = "../User/MyFieldTK.html";
+        }
+
+        window.onload = function () {
+            var hascookie = getCookie("UserId");
+            getUserInfo();
+            //getmenu();
+
+            var ua = navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                $("#divbg").show();
+                $("#divuser").show();
+            }
+        }
+
+        function getUserInfo() {
+            $.ajax({
+                url: "../../User/GetUserInfo",
+                data: {
+                },
+                cache: false,
+                success: function (data) {
+                    var dataJson = $.parseJSON(data);
+                    document.getElementById("divname").innerText = dataJson[0].UserName;
+                    document.getElementById("imghead").src = dataJson[0].Photo;
+                    //控制显示
+                    if (dataJson[0].MemberType != "02") {
+                        $("#liFieldTK").hide();
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+
+        function gouserinfo() {
+            window.location.href = "../User/UserInfo.html";
+        }
+
+
+    </script>
+</body>
+
+</html>
